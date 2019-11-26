@@ -49,7 +49,7 @@ class AuthorListViewTest(TestCase):
 import datetime
 from django.utils import timezone
 
-from catalog.models import BookInstance, Book, Genre, Language
+from catalog.models import BookInstance, Book, Genre
 from django.contrib.auth.models import User  # Required to assign User as a borrower
 
 
@@ -66,13 +66,11 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         # Create a book
         test_author = Author.objects.create(first_name='John', last_name='Smith')
         test_genre = Genre.objects.create(name='Fantasy')
-        test_language = Language.objects.create(name='English')
         test_book = Book.objects.create(
             title='Book Title',
             summary='My book summary',
             isbn='ABCDEFG',
             author=test_author,
-            language=test_language,
         )
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
@@ -206,9 +204,8 @@ class RenewBookInstancesViewTest(TestCase):
         # Create a book
         test_author = Author.objects.create(first_name='John', last_name='Smith')
         test_genre = Genre.objects.create(name='Fantasy')
-        test_language = Language.objects.create(name='English')
         test_book = Book.objects.create(title='Book Title', summary='My book summary',
-                                        isbn='ABCDEFG', author=test_author, language=test_language,)
+                                        isbn='ABCDEFG', author=test_author)
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
         test_book.genre.set(genre_objects_for_book)
